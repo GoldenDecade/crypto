@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<!--<script src="crypto.js"></script>
+<script src="./crypto-master/aes.js"></script>-->
+<!--<script src="http://crypto-js.googlecode.com/svn/tags/3.1/build/rollups/aes.js"></script>-->
+<script src="./aes.js"></script>
+<script src="mode-ecb.js"></script>
+<body>
+
+<script>
+    /*CBC模式时不需要引入mode-ecb.js*/
+    /*function encrypt(word) {
+        var key = CryptoJS.enc.Utf8.parse("1234567890123456"); //16位
+        var iv = CryptoJS.enc.Utf8.parse("1234567890123456");
+        var encrypted = '';
+        if (typeof(word) == 'string') {
+            var srcs = CryptoJS.enc.Utf8.parse(word);
+            encrypted = CryptoJS.AES.encrypt(srcs, key, {
+                iv: iv,
+                mode: CryptoJS.mode.CBC,
+                padding: CryptoJS.pad.Pkcs7
+            });
+        } else if (typeof(word) == 'object') {//对象格式的转成json字符串
+            data = JSON.stringify(word);
+            var srcs = CryptoJS.enc.Utf8.parse(data);
+            encrypted = CryptoJS.AES.encrypt(srcs, key, {
+                iv: iv,
+                mode: CryptoJS.mode.ECB,
+                padding: CryptoJS.pad.Pkcs7
+            })
+        }
+        return encrypted.toString();
+    }
+    // aes解密
+    function decrypt(message) {
+        var key = CryptoJS.enc.Utf8.parse("1234567890123456");
+        var iv = CryptoJS.enc.Utf8.parse("1234567890123456");
+
+        var decrypted=CryptoJS.AES.decrypt(message,key,{
+            iv : iv,
+            mode : CryptoJS.mode.ECB,
+            padding : CryptoJS.pad.Pkcs7
+        });
+        return decrypted.toString(CryptoJS.enc.Utf8);
+    }
+    var enc_123 = encrypt('123');
+    console.log(enc_123);
+    console.log(decrypt(enc_123));*/
+
+    /*// Encrypt
+    var ciphertext = CryptoJS.AES.encrypt('123', 'Secret Passphrase');
+    console.log(ciphertext);
+    console.log(ciphertext.toString());
+    // Decrypt
+    var bytes  = CryptoJS.AES.decrypt(ciphertext.toString(), 'Secret Passphrase');
+    var plaintext = bytes.toString(CryptoJS.enc.Utf8);
+
+    console.log(plaintext);*/
+
+/*CBC模式时不需要引入mode-ecb.js*/
+    function aesEncrypt(data, key) {
+        var encrypted = CryptoJS.AES.encrypt(data, key, {
+            mode: CryptoJS.mode.ECB,
+            padding: CryptoJS.pad.Pkcs7
+        });
+        return encrypted.toString();
+    }
+
+    function aesDecrypt(encrypted, key) {
+        var decrypted = CryptoJS.AES.decrypt(encrypted, key, {
+            mode: CryptoJS.mode.ECB,
+            padding: CryptoJS.pad.Pkcs7
+        });
+        decrypted = CryptoJS.enc.Utf8.stringify(decrypted);// 转换为 utf8 字符串
+        return decrypted;
+    }
+    var key = "1234567890123456";
+    key = CryptoJS.enc.Utf8.parse(key);
+    var encrypted = aesEncrypt("1111", key);
+    console.log(encrypted);
+    var decrypt = aesDecrypt(encrypted.toString(), key);
+    console.log(decrypt);
+</script>
+</body>
+</html>
